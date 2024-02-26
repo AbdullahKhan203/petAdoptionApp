@@ -64,7 +64,7 @@ import {
 } from 'react-native';
 
 interface DataItem {
-  id: number;
+  id: string;
   type: string;
   image: any; // Adjust this type as per your specific requirements
 }
@@ -80,7 +80,7 @@ const Home = ({data}: {data: DataItem[]}) => {
           horizontal
           data={data}
           style={styles.flatListCatagory}
-          renderItem={({item,index}) => (
+          renderItem={({item}) => (
             <TouchableOpacity>
               <View style={styles.catagoryButton}>
                 {/* <TouchableOpacity style={styles.catagoryButton}> */}
@@ -100,21 +100,27 @@ const Home = ({data}: {data: DataItem[]}) => {
             </View> */}
        
         <FlatList
-        //  horizontal
+        keyExtractor={(item) => item.id.toString()}
+ 
           data={data}
-          //  style={styles.flatListSuggesitions}
-          renderItem={({item,index}) => (
-           
+           style={styles.flatListSuggesitions}
+          renderItem={({item}) => (
+             
+              // console.log(item);
+            
             <View  style={styles.suggesitionImageDiv}>
               <ImageBackground
                 style={styles.suggesitionImage}
                 source={item.image}
                 resizeMode="cover"
               />
-              {/* <Text>{item.type}</Text> */}
+              {/* <Image source={item.image} style={styles.suggesitionImage} resizeMode={cover} /> */}
+              {/* <Text>{item.id}</Text> */}
             </View>
           
           )}
+          // keyExtractor={item => item.id.toString()}
+          showsVerticalScrollIndicator={false}
         />
         
       </View>
@@ -188,15 +194,16 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
 
-  // flatListSuggesitions: {
-  //   borderWidth: 1,
-  //   borderColor: 'orange',
-  // },
+  flatListSuggesitions: {
+    borderWidth: 1,
+    borderColor: 'orange',
+    height:230,
+  },
   suggesitionImageDiv: {
     height: 200,
     // position:'absolute',
     width: '100%',
-    marginVertical: 10,
+    marginVertical: 5,
     backgroundColor: 'pink',
 
     borderColor: 'red',
