@@ -1,7 +1,8 @@
 import { View, Text, TextInput, StyleSheet, Button, Alert,TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { auth } from "../../../config/firebase";
+// import { auth } from "../../../config/firebase";
 import { useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from '@react-navigation/native';
 
 
 
@@ -11,8 +12,8 @@ interface LoginData{
 }
 
 
-export default function Login() {
-  const navigation = useNavigation();
+export default function Login({navigation}:any) {
+//   const navigation = useNavigation();
     const [loginData,setLoginData]=useState<LoginData>({
         email: '',
         password: '',
@@ -38,22 +39,22 @@ export default function Login() {
   }
   console.log(loginData);
 
-  auth()
-  .signInWithEmailAndPassword(email, password)
-  .then(() => {
-    console.log('User account  signed in!');
-  })
-  .catch(error => {
-    if (error.code === 'auth/email-already-in-use') {
-      console.log('That email address is already in use!');
-    }
+//   auth()
+//   .signInWithEmailAndPassword(email, password)
+//   .then(() => {
+//     console.log('User account  signed in!');
+//   })
+//   .catch(error => {
+//     if (error.code === 'auth/email-already-in-use') {
+//       console.log('That email address is already in use!');
+//     }
 
-    if (error.code === 'auth/invalid-email') {
-      console.log('That email address is invalid!');
-    }
+//     if (error.code === 'auth/invalid-email') {
+//       console.log('That email address is invalid!');
+//     }
 
-    console.error(error);
-  });
+//     console.error(error);
+//   });
 
 
      
@@ -63,18 +64,19 @@ export default function Login() {
 
     
 
-  const handleSignUpPress = () => {
-    navigation.navigate('SignUp');
-    // navigation.navigate('RecoverPass');
-  };
-  const handleForgetPress = () => {
-    // navigation.navigate('SignUp');
-    navigation.navigate('RecoverPass');
-  };
+//   const handleSignUpPress = () => {
+//     navigation.navigate('SignUp');
+//     // navigation.navigate('RecoverPass');
+//   };
+//   const handleForgetPress = () => {
+//     // navigation.navigate('SignUp');
+//     navigation.navigate('RecoverPass');
+//   };
 
 
   const [isSelected, setSelection] = useState(false);
   return (
+    <NavigationContainer>
     <View style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.heading}>Login</Text>
@@ -98,7 +100,9 @@ export default function Login() {
           />
         </View>
         <View>
-          <Text style={styles.forgotPassword} onPress={handleForgetPress}>Forgot password?</Text>
+          <Text style={styles.forgotPassword} 
+        //   onPress={handleForgetPress}
+          >Forgot password?</Text>
         </View>
         <View>
           {/* <CheckBox
@@ -119,12 +123,15 @@ export default function Login() {
           </TouchableOpacity>
         </View>
         <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-          <TouchableOpacity style={styles.buttonSignup} onPress={handleSignUpPress}>
+          <TouchableOpacity style={styles.buttonSignup}
+        //    onPress={handleSignUpPress}
+           >
             <Text style={styles.signupText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
+    </NavigationContainer>
   );
 }
 
