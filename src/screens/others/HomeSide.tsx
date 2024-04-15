@@ -7,11 +7,10 @@ import {
   FlatList,
   ImageBackground,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import hamberger from '../../asset/hamberger.png';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-// import AppLoading from 'expo-app-loading';
-// import {useFonts} from 'expo-font';
+
 import Search from '../../components/search/SearchComp';
 // animal images
 import cat from '../../asset/images/cat.jpg';
@@ -21,9 +20,21 @@ import sparrow from '../../asset/images/sparrow.jpg';
 import turtle from '../../asset/images/turtle.jpg';
 import squerrl from '../../asset/images/squerrl.jpg';
 import parrot from '../../asset/images/parrot.jpg';
+import {useAppSelector} from '../../hooks/hooks';
+import {useAppDispatch} from '../../hooks/hooks';
+import {fetchData} from '../../store/slices/dataSlice';
 
 const HomeSide = ({navigation}: any) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchData('donations'));
+    // dispatch(getUserData(''));
+  }, []);
+  const userData: any = useAppSelector(state => state.user.userData);
+  const allData: any = useAppSelector(state => state.data.allData);
+  // console.log('data is', allData);
+
   const [categories, setCategories] = useState([
     {name: 'Dogs', key: '1'},
     {name: 'Cats', key: '2'},
@@ -92,17 +103,6 @@ const HomeSide = ({navigation}: any) => {
     },
     // Add more data as needed
   ]);
-
-  // let [fontsLoaded] = useFonts({
-  //   MontserratExtraBold: require('../../asset/fonts/static/Montserrat-ExtraBold.ttf'),
-  //   MontserratBold: require('../../asset/fonts/static/Montserrat-Bold.ttf'),
-  //   MontserratSemiBold: require('../../asset/fonts/static/Montserrat-SemiBold.ttf'),
-  //   // Montserrat: require("../../asset/fonts/Montserrat-VariableFont_wght.ttf"),
-  // });
-  // if (!fontsLoaded) {
-  //   return <AppLoading />;
-  // }
-
   const openDrawer = () => {
     setDrawerOpen(true);
   };
@@ -122,7 +122,16 @@ const HomeSide = ({navigation}: any) => {
             <Image source={hamberger} />
           </TouchableOpacity>
         </View>
-        <View style={styles.profileImg}></View>
+        <View>
+          <Image
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 123,
+              backgroundColor: '#C4C4C4',
+            }}
+            source={userData && {uri: userData.image}}></Image>
+        </View>
       </View>
       <View style={styles.headingDiv}>
         <Text style={styles.heading}>Find an Awesome Pets for You</Text>
@@ -137,11 +146,14 @@ const HomeSide = ({navigation}: any) => {
           }}
         />
       </View>
+      <Text>Email {userData.email} </Text>
+      <Text>Name {userData.userName} </Text>
+      <Text>uid {userData.uid} </Text>
       <View>
         <FlatList
           horizontal
           style={styles.horizontalFlatlist}
-          data={suggestedData}
+          data={allData}
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
             <TouchableOpacity
@@ -153,8 +165,11 @@ const HomeSide = ({navigation}: any) => {
                 marginBottom: 'auto',
                 marginHorizontal: 2,
               }}>
-              <Image source={item.image} style={styles.circularSuggestImage} />
-              <Text>{item.Catagory}</Text>
+              <Image
+                source={{uri: item.imageUrl}}
+                style={styles.circularSuggestImage}
+              />
+              <Text>{item.selectedType}</Text>
             </TouchableOpacity>
           )}
         />
@@ -166,7 +181,7 @@ const HomeSide = ({navigation}: any) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           style={styles.verticalFlatlist}
-          data={suggestedData}
+          data={allData}
           renderItem={({item}) => (
             <TouchableOpacity
               style={{
@@ -176,15 +191,15 @@ const HomeSide = ({navigation}: any) => {
                 marginBottom: 20,
               }}>
               <ImageBackground
-                source={item.image}
+                source={{uri: item.imageUrl}}
                 style={styles.imageBackground}
                 resizeMode="cover" // added resizeMode
               >
                 <View style={styles.cardText}>
-                  <Text style={styles.cardTextName}>{item.name}</Text>
-                  <Text style={styles.cardTextCatagory}>{item.Catagory}</Text>
-                  <Text style={styles.cardTextAge}>age {item.age}</Text>
-                  <Text style={styles.cardTextPrice}>$ {item.price}</Text>
+                  <Text style={styles.cardTextName}>{item.selectedType}</Text>
+                  <Text style={styles.cardTextCatagory}>{item.breed}</Text>
+                  <Text style={styles.cardTextAge}>Age {item.age}</Text>
+                  <Text style={styles.cardTextPrice}>$ {item.amount}</Text>
                 </View>
               </ImageBackground>
             </TouchableOpacity>

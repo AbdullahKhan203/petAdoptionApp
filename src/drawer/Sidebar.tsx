@@ -3,6 +3,8 @@ import React from 'react';
 import Search from '../components/search/SearchComp';
 import closeDrawer from '../asset/closeDrawer.png';
 import {useNavigation} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+
 
 const SideBar = ({props, navigation}: any) => {
   // const navigation = useNavigation();
@@ -18,6 +20,14 @@ const SideBar = ({props, navigation}: any) => {
       navigation.navigate(screenName);
     }
   };
+
+  const handleLogout=()=>{
+    auth()
+  .signOut()
+  .then(() => console.log('User signed out!'));
+  // navigation.navigate(screenName);
+
+}
   return (
     <>
       <View style={styles.container}>
@@ -77,7 +87,7 @@ const SideBar = ({props, navigation}: any) => {
           </TouchableOpacity> */}
         </View>
         <View style={styles.logoutDiv}>
-          <TouchableOpacity style={styles.logoutBtn}>
+          <TouchableOpacity style={styles.logoutBtn}  onPress={handleLogout}>
             <Text style={styles.logoutBtnText}>Logout</Text>
           </TouchableOpacity>
         </View>

@@ -145,7 +145,6 @@
 
 // export default BottomNavigator;
 
-
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import PetSearch from '../bottom/Search';
@@ -156,33 +155,30 @@ import {Image, StyleSheet, View} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-const   BottomNavigator = () => {
+const BottomNavigator = () => {
   return (
     <>
       <Tab.Navigator
         screenOptions={{
           tabBarShowLabel: false,
           headerShown: false,
+          tabBarHideOnKeyboard: true,
           tabBarStyle: navs.navigation,
         }}>
         <Tab.Screen
           name="Home"
           component={Home}
           options={{
-            tabBarIcon: ({focused}:any) => (
+            tabBarIcon: ({focused}: any) => (
               <View
                 style={[
                   navs.tabIconContainer,
                   focused ? navs.tabIconFocused : navs.tabIconUnfocused,
                 ]}>
                 {focused ? (
-                  <Image
-                    source={require('../asset/activeHome.png')}
-                  />
+                  <Image source={require('../asset/activeHome.png')} />
                 ) : (
-                  <Image
-                    source={require('../asset/inactiveHome.png')}
-                  />
+                  <Image source={require('../asset/inactiveHome.png')} />
                 )}
               </View>
             ),
@@ -192,20 +188,16 @@ const   BottomNavigator = () => {
           name="PetSearch"
           component={PetSearch}
           options={{
-            tabBarIcon: ({focused}:any) => (
+            tabBarIcon: ({focused}: any) => (
               <View
                 style={[
                   navs.tabIconContainer,
                   focused ? navs.tabIconFocused : navs.tabIconUnfocused,
                 ]}>
                 {focused ? (
-                  <Image
-                    source={require('../asset/activeSearch.png')}
-                  />
+                  <Image source={require('../asset/activeSearch.png')} />
                 ) : (
-                  <Image
-                    source={require('../asset/inactiveSearch.png')}
-                  />
+                  <Image source={require('../asset/inactiveSearch.png')} />
                 )}
               </View>
             ),
@@ -216,20 +208,16 @@ const   BottomNavigator = () => {
           name="favorites"
           component={Favorites}
           options={{
-            tabBarIcon: ({focused}:any) => (
+            tabBarIcon: ({focused}: any) => (
               <View
                 style={[
                   navs.tabIconContainer,
                   focused ? navs.tabIconFocused : navs.tabIconUnfocused,
                 ]}>
                 {focused ? (
-                  <Image
-                    source={require('../asset/activeUnion.png')}
-                  />
+                  <Image source={require('../asset/activeUnion.png')} />
                 ) : (
-                  <Image
-                    source={require('../asset/inactiveUnion.png')}
-                  />
+                  <Image source={require('../asset/inactiveUnion.png')} />
                 )}
               </View>
             ),
@@ -240,26 +228,21 @@ const   BottomNavigator = () => {
           name="Profile"
           component={Profile}
           options={{
-            tabBarIcon: ({focused}:any) => (
+            tabBarIcon: ({focused}: any) => (
               <View
                 style={[
                   navs.tabIconContainer,
                   focused ? navs.tabIconFocused : navs.tabIconUnfocused,
                 ]}>
                 {focused ? (
-                  <Image
-                    source={require('../asset/activeProfile.png')}
-                  />
+                  <Image source={require('../asset/activeProfile.png')} />
                 ) : (
-                  <Image
-                    source={require('../asset/inactiveProfile.png')}
-                  />
+                  <Image source={require('../asset/inactiveProfile.png')} />
                 )}
               </View>
             ),
           }}
         />
-        
       </Tab.Navigator>
     </>
   );

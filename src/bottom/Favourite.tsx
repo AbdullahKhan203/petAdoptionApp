@@ -1,93 +1,102 @@
-// import { View, Text } from "react-native";
-// import React from "react";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import Favourites from "../screens/donations/Favourites";
-// import MyDonations from "../screens/donations/MyDonations";
-// import SideBar from "../drawer/Sidebar";
-// import { NavigationContainer } from "@react-navigation/native";
-// import FavouriteTabNavigations from "../FavouriteTabNAvigations/FavouriteTabNavigations";
-// const Stack = createNativeStackNavigator();
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+} from 'react-native';
+import React, {useState,useEffect} from 'react';
+import plusIcon from '../asset/plusIcon.png';
+import turtleImg from '../asset/images/turtle.jpg';
+import UncheckedLikeBtn from '../asset/images/uncheckedUnion.png';
+import checkedLikeBtn from '../asset/images/checkedUnion.png';
+import SearchIcon from '../asset/images/searchIconSearchPage.png';
+import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import {fetchFavorites, removeFavorite} from '../store/slices/favouriteSlice'; // Import removeFavorite action
+import {auth} from '../config/firebase';
 
-// const BottomFavourite = () => {
-//   return (
-//     // <NavigationContainer>
-//     // <Stack.Navigator  >
-//     //     <Stack.Screen name="Favourites" component={Favourites} />
-//     //     <Stack.Screen name="MyDonations" component={MyDonations} />
-
-//     //   </Stack.Navigator>
-//       // </NavigationContainer>
-//       <>
-//       <Favourites  />
-//       </>
-//   );
-// };
-
-// export default BottomFavourite;
-
-
-
-
-
-
-
-
-
-
-
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import React from "react";
-import plusIcon from "../asset/plusIcon.png";
-import turtleImg from "../asset/images/turtle.jpg";
-import UncheckedLikeBtn from "../asset/images/uncheckedUnion.png";
-import SearchIcon from "../asset/images/searchIconSearchPage.png";
 const Favourite = () => {
+  const currentUserEmail = auth().currentUser?.email;
+
+  const dispatch = useAppDispatch();
+  dispatch(fetchFavorites('favorites'));
+ 
+ 
+  // const favourites = useAppSelector(state => state.favourite.favorites);
+
+  // useEffect(() => {
+  //   console.log('favourites in favouirte bottm', favourites);
+  // }, [favourites]);
+
+
+  const allFavorites = useAppSelector(state => state.favourite.favorites);
+  
+  // Filter favorites based on current user's email
+  const [filteredFavorites, setFilteredFavorites] = useState([]);
+
+  useEffect(() => {
+    if (currentUserEmail) {
+      const filtered = allFavorites.filter(item => item.email === currentUserEmail);
+      setFilteredFavorites(filtered);
+    }
+  }, [currentUserEmail, allFavorites]);
+
+  // Function to remove item from favorites
+  const handleRemoveFavorite = (itemId: string) => {
+    dispatch(removeFavorite('favorites', itemId)); // Dispatch removeFavorite action with collectionName and itemId
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Favourites</Text>
         <Image source={plusIcon} style={styles.plusIcon} />
       </View>
-      {/* <View style={styles.card}>
-        <View style={styles.imgDiv}>
-          <Image source={turtleImg} style={styles.image} />
-        </View>
-        <View style={styles.info}>
-          <Text style={styles.name}>Cavachon</Text>
-          <Text style={styles.age}>Age 4 months</Text>
-          <Text style={styles.location}>Fsd</Text>
-          <Text style={styles.gender}>Male</Text>
-        </View>
-      </View> */}
-      <TouchableOpacity
-        // onPress={() => handleSuggestedItemPress(item)}
-        style={styles.suggestedItem}
-        activeOpacity={1}
-      >
-        <Image source={turtleImg} style={styles.image} />
-        <View style={styles.card}>
-          <Text style={styles.name}>Cavachon</Text>
-          <Text style={styles.fot}>Age 4 months </Text>
 
-          <Text style={styles.fot}>
-            Fsd <Image source={SearchIcon} />{" "}
-          </Text>
-
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text>Male</Text>
-            <Image
-              style={{ marginTop: 6, marginRight: 10 }}
-              source={UncheckedLikeBtn}
-            />
-          </View>
-        </View>
-      </TouchableOpacity>
+      <View
+        style={{
+          height: '95%',
+          width: '100%',
+          borderColor: 'red',
+          borderWidth: 1,
+        }}>
+        <ScrollView>
+          <FlatList
+            data={filteredFavorites}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => (
+              <TouchableOpacity style={styles.suggestedItem} activeOpacity={1}>
+                <Image source={{uri: item.imageUrl}} style={styles.image} />
+                <View style={styles.card}>
+                  <Text style={styles.name}>{item.breed}</Text>
+                  <Text style={styles.age}>Age {item.age} months </Text>
+                  <Text style={styles.location}>
+                    {item.location} <Image source={SearchIcon} />{' '}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text style={styles.gender}>
+                      {item.selectedGenderStatusType}
+                    </Text>
+                    <TouchableOpacity
+                      onPress={() => handleRemoveFavorite(item.id)}>
+                      <Image
+                        style={{marginTop: 6, marginRight: 10}}
+                        source={checkedLikeBtn}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -96,89 +105,35 @@ export default Favourite;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
     marginTop: 10,
-    alignItems: "center",
-    // bordre
+    alignItems: 'center',
   },
   header: {
-    height: "5%",
-    width: "100%",
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    height: '5%',
+    width: '100%',
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
   plusIcon: {
     height: 30,
     width: 30,
   },
-  // card: {
-  //   marginTop: 20,
-  //   height: 181,
-  //   width: 341,
-  //   backgroundColor: "transparent",
-  //   flexDirection: "row",
-  //   borderWidth: 1,
-  //   borderColor: "red",
-  //   // justifyContent:'center',
-  //   alignItems: "center",
-  // },
-  // imgDiv: {
-  //   width: "55%",
-  //   borderWidth: 1,
-  //   borderColor: "green",
-  // },
-  // image: {
-  //   height: "100%",
-  //   width: "100%",
-  //   borderRadius: 25,
-  // },
-  // info: {
-  //   borderTopWidth: 1,
-  //   borderRightWidth: 1,
-  //   borderBottomWidth: 1,
-  //   borderColor: "green",
-  //   width: "45%",
-  //   justifyContent: "center",
-  //   alignItems:'flex-start',
-  //   height: "80%",
-  //   borderRadius: 20,
-  //   alignSelf:'baseline'
-  //   // elevation:2,
-  // },
-  // name: {
-  //   fontSize: 18,
-  //   lineHeight: 21.94,
-  // },
-  // age: {
-  //   fontSize: 10,
-  //   lineHeight: 12.19,
-  // },
-
-  // location: {
-  //   fontSize: 10,
-  //   lineHeight: 12.19,
-  // },
-  // gender: {
-  //   fontSize: 10,
-  //   lineHeight: 12.19,
-  // },
-
   image: {
     width: 194,
     height: 174,
     borderRadius: 25,
-    // marginRight: 10,
   },
   card: {
     flex: 1,
-    backgroundColor: "#fff",
-    borderTopRightRadius: 10, // Keep only right border radius
+    backgroundColor: '#fff',
+    borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     padding: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     height: 126,
     marginRight: 10,
     elevation: 5,
@@ -188,17 +143,24 @@ const styles = StyleSheet.create({
     },
   },
   name: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18,
   },
-  fot: {
+  age: {
+    fontSize: 12,
+  },
+  location: {
+    fontSize: 12,
+  },
+  gender: {
     fontSize: 12,
   },
   suggestedItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: 10,
     paddingLeft: 5,
+    width: '100%',
   },
   headerText: {
     fontSize: 24,

@@ -33,39 +33,39 @@
 
 // export default DrawerNAvigator;
 
-import { View, Text } from "react-native";
-import React from "react";
+import {View, Text} from 'react-native';
+import React from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItem,
-} from "@react-navigation/drawer";
-import Adopt from "../screens/others/Adopt";
-import Donate from "../screens/others/Donate";
-import Add_Pet from "../screens/others/Add_Pet";
-import Favourite from "../screens/others/Favourite";
-import Message from "../screens/others/Message";
+} from '@react-navigation/drawer';
+import Adopt from '../screens/others/Adopt';
+import Donate from '../screens/others/Donate';
+import Add_Pet from '../screens/others/Add_Pet';
+import Favourite from '../screens/others/Favourite';
+import Message from '../screens/others/Message';
 // import Home from "../bottom/BottomHome";
-import HomeSide from "../screens/others/HomeSide";
-import BottomProfile from "../bottom/Profile";
-import BottomFavourite from "../bottom/Favourite";
+import HomeSide from '../screens/others/HomeSide';
+import BottomProfile from '../bottom/Profile';
+import BottomFavourite from '../bottom/Favourite';
 
-import SideBar from "./Sidebar";
+import SideBar from './Sidebar';
 // import Favourites from "../screens/donations/Favourites";
-import Favourites from "../screens/donations/Favourites";
+import Favourites from '../screens/donations/Favourites';
 // import MyDonations from "../screens/donations/MyDonations";
-import DonateData from "../screens/donations/DonateData";
-import DonationRequests from "../screens/donations/DonationRequests";
-import MyDonations from "../screens/donations/MyDonations";
+import DonateData from '../screens/donations/DonateData';
+import DonationRequests from '../screens/donations/DonationRequests';
+import MyDonations from '../screens/donations/MyDonations';
+import UpdatePassword from '../screens/auth/UpdatePassword';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
 
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <SideBar {...props} />}
-      screenOptions={{ headerShown: false }}
-    >
+      drawerContent={props => <SideBar {...props} />}
+      screenOptions={{headerShown: false}}>
       <Drawer.Screen name="HomeSide" component={HomeSide} />
       <Drawer.Screen name="Adopt" component={Adopt} />
       <Drawer.Screen name="MyDonations" component={MyDonations} />
@@ -98,6 +98,7 @@ const DrawerNavigator = () => {
         }}
       /> */}
       <Drawer.Screen name="DonationRequests" component={DonationRequests} />
+      <Drawer.Screen name="UpdatePassword" component={UpdatePassword} />
       {/* <Drawer.Screen
         name="Profile"
         component={BottomProfile}
