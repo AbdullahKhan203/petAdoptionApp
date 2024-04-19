@@ -21,6 +21,7 @@ import {auth} from '../config/firebase';
 import {fetchUserDataSuccess} from '../store/slices/userSlice';
 import BottomNavigator from '../bottom/BottomNavigator';
 import UpdatePassword from '../screens/auth/UpdatePassword';
+import PetDetails from '../screens/details/AdoptedPetDetails';
 
 export type RootStackparams = {
   Login: undefined;
@@ -133,7 +134,6 @@ const StackNavigation: React.FC = () => {
       //   />
       // </Stack.Navigator>
       <BottomNavigator />
-      
     );
   } else {
     return (
@@ -156,6 +156,11 @@ const StackNavigation: React.FC = () => {
         {/* <Stack.Screen
           name="UpdatePassword"
           component={UpdatePassword}
+          options={{headerShown: false}}
+        /> */}
+        {/* <Stack.Screen
+          name="PetDetailss"
+          component={PetDetails}
           options={{headerShown: false}}
         /> */}
       </Stack.Navigator>

@@ -182,7 +182,7 @@ const MyDonations = () => {
   // Filter favorites based on current user's email
   useEffect(() => {
     if (currentUserEmail) {
-      const filtered = allData.filter(item => item.email === currentUserEmail);
+      const filtered:any = allData.filter((item:any) => item.email === currentUserEmail);
       setFilteredFavorites(filtered);
     }
   }, [currentUserEmail, allData]);
@@ -199,11 +199,11 @@ const MyDonations = () => {
         <Image source={plusIcon} style={styles.plusIcon} />
       </View>
       {/* Add your UI components here */}
-      <View style={{ height: '95%', width: '100%', borderColor: 'red', borderWidth: 1 }}>
+      <View style={{ height: '95%', width: '100%', borderColor: 'transparent', borderWidth: 1 }}>
         <FlatList
           data={filteredFavorites}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
+          renderItem={({ item }:any) => (
             <TouchableOpacity style={styles.suggestedItem} activeOpacity={1}>
               <Image source={{ uri: item.imageUrl }} style={styles.image} />
               <View style={styles.card}>

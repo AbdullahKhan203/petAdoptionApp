@@ -43,9 +43,12 @@ const SideBar = ({props, navigation}: any) => {
           <Search containerStyle={{borderColor: 'transparent'}} />
         </View>
         <View>
-          <TouchableOpacity style={styles.option}>
-            <Text>My Adoptions</Text>
+          <TouchableOpacity style={styles.option} onPress={() => handleNavigation('HomeSide')}>
+            <Text>Home</Text>
           </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.option}>
+            <Text>My Adoptions</Text>
+          </TouchableOpacity> */}
           {/* <TouchableOpacity style={styles.option}   onPress={() => handleNavigation('BottomFavourite')}>
             <Text>Donations</Text>
           </TouchableOpacity> */}

@@ -58,6 +58,7 @@ import DonateData from '../screens/donations/DonateData';
 import DonationRequests from '../screens/donations/DonationRequests';
 import MyDonations from '../screens/donations/MyDonations';
 import UpdatePassword from '../screens/auth/UpdatePassword';
+import PetDetails from '../screens/details/AdoptedPetDetails';
 
 const DrawerNavigator = () => {
   const Drawer = createDrawerNavigator();
@@ -99,6 +100,11 @@ const DrawerNavigator = () => {
       /> */}
       <Drawer.Screen name="DonationRequests" component={DonationRequests} />
       <Drawer.Screen name="UpdatePassword" component={UpdatePassword} />
+      <Drawer.Screen
+          name="PetDetailss"
+          component={PetDetails}
+          options={{headerShown: false}}
+        />
       {/* <Drawer.Screen
         name="Profile"
         component={BottomProfile}

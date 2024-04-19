@@ -10,11 +10,11 @@ import {
 import React from "react";
 import { SearchBarIcon } from "../../asset/search-icon-white.png";
 const SearchIconWhite = require("../../asset/search-icon-white.png");
-const SearchComp = ({ containerStyle } :any) => {
+const SearchComp = ({ containerStyle,handleSearch,onPress } :any) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <TextInput style={styles.input} placeholder="Search for a pet" />
-      <TouchableOpacity style={styles.button}>
+      <TextInput style={styles.input} placeholder="Search for a pet" autoCapitalize="none" autoCorrect={false} onChangeText={handleSearch} />
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         <Image source={SearchIconWhite} style={styles.image} />
       </TouchableOpacity>
     </View>
@@ -67,52 +67,71 @@ const styles = StyleSheet.create({
 });
 
 
-// import React from "react";
-// import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
 
-// const SearchIconWhite = require("../../asset/search-icon-white.png");
 
-// const Search = ({ containerStyle, inputStyle, buttonStyle, imageStyle, ...props }) => {
+
+// import React, { useState } from 'react';
+// import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+// import SearchIconWhite from '../../asset/search-icon-white.png';
+
+// const SearchComp = ({ containerStyle, handleSearch }) => {
+//   const [searchText, setSearchText] = useState('');
+
+//   const handleSearchButtonPress = () => {
+//     // Check if the search text is empty
+//     if (searchText.trim() === '') {
+//       // If empty, call handleSearch with an empty string to show all items
+//       handleSearch('');
+//     } else {
+//       // If not empty, call handleSearch with the search text
+//       handleSearch(searchText);
+//     }
+//   };
+
 //   return (
 //     <View style={[styles.container, containerStyle]}>
-//       <TextInput style={[styles.input, inputStyle]} placeholder="Search for a pet" {...props} />
-//       <TouchableOpacity style={[styles.button, buttonStyle]}>
-//         <Image source={SearchIconWhite} style={[styles.image, imageStyle]} />
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Search for a pet"
+//         autoCapitalize="none"
+//         autoCorrect={false}
+//         onChangeText={setSearchText}
+//       />
+//       <TouchableOpacity style={styles.button} onPress={handleSearchButtonPress}>
+//         <Image source={SearchIconWhite} style={styles.image} />
 //       </TouchableOpacity>
 //     </View>
 //   );
 // };
 
-// export default Search;
+// export default SearchComp;
 
 // const styles = StyleSheet.create({
 //   container: {
+//     flexDirection: 'row', // Changed flexDirection to 'row'
+//     alignItems: 'center',
+//     justifyContent: 'space-between', // Changed justifyContent to 'space-between'
 //     paddingHorizontal: 10,
 //     borderWidth: 1,
-//     borderColor: "red",
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
+//     borderColor: 'red',
 //     marginTop: 30,
 //     height: 54,
 //   },
 //   input: {
+//     flex: 1, // Added flex: 1 to make the input occupy remaining space
 //     borderRadius: 20,
 //     paddingHorizontal: 20,
 //     height: 44,
-//     width: "100%",
-//     backgroundColor: "#e5e5e5",
+//     backgroundColor: '#e5e5e5',
 //   },
 //   button: {
-//     height: 54,
-//     backgroundColor: "black",
+//     marginLeft: 10, // Added marginLeft to create space between input and button
+//     height: 44,
+//     width: 44,
+//     backgroundColor: 'black',
 //     borderRadius: 20,
-//     display: "flex",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     width: "20%",
-//     position: "absolute",
-//     left: "85%",
+//     justifyContent: 'center',
+//     alignItems: 'center',
 //   },
 //   image: {
 //     height: 30.22,

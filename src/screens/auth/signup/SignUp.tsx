@@ -171,7 +171,8 @@ const styles = StyleSheet.create({
   },
   main: {
     paddingHorizontal: 32,
-    borderWidth: 2,
+    borderWidth: 1,
+    borderColor:'transparent',
   },
   userNameDiv: {
     marginVertical: 10,
