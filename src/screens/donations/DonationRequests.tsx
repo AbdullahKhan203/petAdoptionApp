@@ -156,6 +156,8 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     marginLeft: 20,
+    lineHeight:29.26,
+    fontFamily:'Montserrat-Bold',
   },
   card: {
     width: '95%',
@@ -223,31 +225,39 @@ const styles = StyleSheet.create({
   },
   contactBtnText: {
     color: '#FFFFFF',
+    fontSize: 16,
+    lineHeight: 19.5,
+    fontFamily:'Montserrat-Bold',
   },
   name: {
     fontSize: 18,
     lineHeight: 21.94,
     marginLeft: 10,
+    fontFamily:'Montserrat-Bold',
   },
   breed: {
     fontSize: 18,
     lineHeight: 21.94,
     marginLeft: 10,
+    fontFamily:'Montserrat-Bold',
   },
   email: {
     fontSize: 10,
     lineHeight: 12.19,
     marginLeft: 10,
+    fontFamily:'Montserrat-Medium',
   },
   location: {
     fontSize: 10,
     lineHeight: 12.19,
+    fontFamily:'Montserrat-Medium',
     marginLeft: 10,
   },
   date: {
     fontSize: 10,
     lineHeight: 12.19,
     marginLeft: 10,
+    fontFamily:'Montserrat-Medium',
   },
 
   flatListContainer: {

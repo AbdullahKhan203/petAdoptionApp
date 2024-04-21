@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     lineHeight: 29.26,
+    fontFamily:'Montserrat-Bold',
     marginTop: 78,
   },
   profileImgDiv: {
@@ -223,6 +224,7 @@ const styles = StyleSheet.create({
   texts: {
     fontSize: 18,
     lineHeight: 21.94,
+    fontFamily:'Montserrat-SemiBold',
   },
   input: {
     width: '100%',

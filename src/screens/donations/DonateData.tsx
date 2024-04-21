@@ -874,7 +874,7 @@ const DonateData = () => {
   // description hooks
   const [imageUrl, setImageUrl] = useState<string>('');
   console.log('imageUrl', imageUrl);
-  const searchRef = useRef();
+  const searchRef:any = useRef();
 
   const onSearch = (txt: any) => {
     if (txt !== '') {

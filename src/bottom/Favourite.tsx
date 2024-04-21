@@ -481,11 +481,11 @@ const Favourite = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const user = auth().currentUser; // Get currently authenticated user
+        const user:any = auth().currentUser; // Get currently authenticated user
         if (user) {
           const favoritesRef = firestore().collection('favorites').doc(user.email).collection('items');
           const unsubscribe = favoritesRef.onSnapshot(snapshot => {
-            const favoritesData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const favoritesData:any = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setFavorites(favoritesData);
           });
 
@@ -502,9 +502,9 @@ const Favourite = () => {
     fetchFavorites();
   }, []);
 
-  const handleRemoveFavorite = async (itemId) => {
+  const handleRemoveFavorite = async (itemId:any) => {
     try {
-      const user = auth().currentUser;
+      const user:any = auth().currentUser;
       if (user) {
         const favoritesRef = firestore().collection('favorites').doc(user.email).collection('items');
         await favoritesRef.doc(itemId).delete();
@@ -534,7 +534,7 @@ const Favourite = () => {
         
           <FlatList
             data={favorites}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item:any) => item.id}
             renderItem={({ item }:any) => (
               <TouchableOpacity style={styles.suggestedItem} activeOpacity={1}>
                 <Image source={{ uri: item.imageUrl }} style={styles.image} />
@@ -613,17 +613,25 @@ const styles = StyleSheet.create({
     },
   },
   name: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: 18,
+    fontFamily:'Montserrat-Bold',
+    // lineHeight:12.19,
   },
   age: {
     fontSize: 12,
+    fontFamily:'Montserrat-Medium',
+
   },
   location: {
     fontSize: 12,
+    fontFamily:'Montserrat-Medium',
+    lineHeight:12.19,
   },
   gender: {
     fontSize: 12,
+    fontFamily:'Montserrat-Medium',
+    lineHeight:12.19,
   },
   suggestedItem: {
     flexDirection: 'row',
@@ -635,6 +643,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     lineHeight: 29.26,
+    fontFamily:'Montserrat-Bold',
   },
 });
 
